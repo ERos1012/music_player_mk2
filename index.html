@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src 'self' https://eros1012.github.io; img-src 'self' https://eros1012.github.io; media-src 'self' https://eros1012.github.io; script-src 'self';"
+    />
+    <link href="./styles.css" rel="stylesheet" />
+    <title>Music Player</title>
+  </head>
+  <body>
+    <!-- This file is used to render the main window of the app -->
+    <div class="container">
+      <div class="sleep-timer-container">
+        <p>Stop playing after:</p>
+        <ul>
+          <li data-minutes="5">5 minutes</li>
+          <li data-minutes="10">10 minutes</li>
+          <li data-minutes="15">15 minutes</li>
+          <li data-minutes="30">30 minutes</li>
+          <li data-minutes="45">45 minutes</li>
+          <li data-minutes="60">1 hour</li>
+          <li data-minutes="cancel">Cancel Timer</li>
+        </ul>
+      </div>
+
+      <div class="music-player">
+        <img src="thumbnails/IMG_9624.JPEG" class="song-img" />
+        <h1 class="song-name">Song name</h1>
+        <p class="artist-name">Artist name</p>
+
+        <!--For Audio Controls-->
+        <div class="progress-container">
+          <input type="range" id="progress-bar" value="0" min="0" max="100" />
+          <div class="time-info">
+            <span id="current-time">0:00</span>
+            <span id="total-time">0:00</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="prev" class="control-btn">
+            <img src="icons/prev.svg" alt="Previous" />
+          </button>
+          <button id="play-pause" class="control-btn">
+            <img src="icons/play.svg" alt="Play/Pause" />
+          </button>
+          <button id="next" class="control-btn">
+            <img src="icons/next.svg" alt="Next" />
+          </button>
+        </div>
+      </div>
+
+      <div class="queue-container">
+        <p>Queue:</p>
+        <ul id="queue-list">
+          <!-- Dynamically populated -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>

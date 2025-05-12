@@ -1,0 +1,228 @@
+/* styles.css */
+
+/* Reset & base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #121212;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  height: 80%;
+  background: #1e1e1e;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.music-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.song-img {
+  width: 50%;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.song-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  height: 2.8em; /* Reserve space for two lines */
+  line-height: 1.4em;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  margin-bottom: 5px;
+}
+
+.artist-name {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.menus-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 70%;
+}
+
+.time-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+#progress-bar {
+  width: 100%;
+  appearance: none;
+  height: 6px;
+  border-radius: 5px;
+  background: #444;
+  outline: none;
+  margin-bottom: 20px;
+}
+#progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #1db954;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -4px;
+}
+#progress-bar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #1db954;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 15px;
+  transition: transform 0.2s ease;
+}
+
+.control-btn img {
+  width: 40px;
+  height: 40px;
+  filter: invert(1); 
+}
+
+.control-btn:hover {
+  transform: scale(1.2);
+}
+
+.menu-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-section li {
+  padding: 0.5em 0;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+.sleep-timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#sleep-timer-text {
+  font-size: 12px;
+  color: #aaa;
+  position: absolute;
+  bottom: 5px;
+}
+
+#sleep-content ul li {
+  transition: color 0.2s ease;
+}
+
+#sleep-content ul li:hover {
+  color: #1db954;
+}
+
+#queue-content-text {
+  font-size: 12px;
+  color: #aaa;
+  position: absolute;
+  bottom: 5px;
+}
+
+#queue-content ul li {
+  transition: color 0.2s ease;
+}
+
+#queue-content ul li:hover {
+  color: #1db954;
+}
+
+#queue-list li.current {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.queue-icon {
+  width: 20px;
+  margin-left: 10px;
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* iPads and tablets (portrait and landscape) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  button,
+  #queue-list li,
+  .sleep-options li {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  /* Desktop hover */
+  button:hover,
+  #queue-list li:hover,
+  .sleep-options li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.03);
+    cursor: pointer;
+  }
+
+  /* Mobile active state */
+  button:active,
+  #queue-list li:active,
+  .sleep-options li:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.98);
+  }
+}
