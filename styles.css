@@ -21,12 +21,14 @@ body {
   align-items: center;
   height: 100%;
   overflow: hidden;
-  padding: 20px 0; 
+  padding: 20px 0;
+  -webkit-tap-highlight-color: transparent; /* Removes grey overlay on iOS */
+  touch-action: manipulation;
 }
 
 .container {
   height: calc(var(--vh, 1vh) * 100 - 40px);
-  max-height: 700px;;
+  max-height: 700px;
   background: #1e1e1e;
   border-radius: 20px;
   padding: 20px;
@@ -139,7 +141,8 @@ body {
 }
 
 .control-btn:active img {
-  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%) hue-rotate(88deg) brightness(94%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%)
+    hue-rotate(88deg) brightness(94%) contrast(101%);
 }
 
 .control-btn:hover {
@@ -147,8 +150,8 @@ body {
 }
 
 .control-btn:active {
-  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%) hue-rotate(88deg) brightness(94%) contrast(101%);
-  /* This turns icons into the Spotify green on press/focus */
+  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%)
+    hue-rotate(88deg) brightness(94%) contrast(101%);
 }
 
 .bottom-menu {
