@@ -5,8 +5,10 @@ let audio,
   prevBtn,
   nextBtn,
   progressBar,
+  cancelBtn,
   sleepBtn,
   queueBtn,
+  bottomMenu,
   sleepContent,
   queueContent,
   queueList,
@@ -37,9 +39,11 @@ window.addEventListener("DOMContentLoaded", async () => {
   totalTimeEl = document.getElementById("total-time");
   sleepBtn = document.getElementById("sleep-timer");
   queueBtn = document.getElementById("queue");
+  bottomMenu = document.getElementById("bottom-menu");
   sleepContent = document.getElementById("sleep-content");
   queueContent = document.getElementById("queue-content");
   queueList = document.getElementById("queue-list");
+  cancelBtn = document.getElementById("close-menu");
   sleepTimerText = document.getElementById("sleep-timer-text");
 
   // Create and insert audio element
@@ -156,8 +160,51 @@ function setupEventListeners() {
 
   // Handle clicks in sleep menu
   sleepContent.addEventListener("click", handleSleepMenuClick);
+
+  // Hide the menu when clicking cancel button
+  cancelBtn.addEventListener("click", () => {
+    bottomMenu.classList.add("hidden");
+    sleepContent.classList.add("hidden");
+    queueContent.classList.add("hidden");
+  });
 }
 
+function toggleBottomMenu(type) {
+  const isAlreadyVisible = !bottomMenu.classList.contains("hidden");
+
+  // If already visible and clicking same button, close it
+  if (
+    isAlreadyVisible &&
+    ((type === "sleep" && !sleepContent.classList.contains("hidden")) ||
+      (type === "queue" && !queueContent.classList.contains("hidden")))
+  ) {
+    bottomMenu.classList.add("hidden");
+    sleepContent.classList.add("hidden");
+    queueContent.classList.add("hidden");
+    return;
+  }
+
+  // Show the appropriate content
+  bottomMenu.classList.remove("hidden");
+  sleepContent.classList.toggle("hidden", type !== "sleep");
+  queueContent.classList.toggle("hidden", type !== "queue");
+}
+
+function handleSleepMenuClick(e) {
+  const target = e.target.closest("li");
+  if (!target) return;
+
+  const value = target.getAttribute("data-minutes");
+
+  if (value === "cancel") {
+    cancelSleepTimer();
+  } else {
+    const minutes = parseInt(value);
+    setSleepTimer(minutes);
+  }
+  bottomMenu.classList.add("hidden");
+  sleepContent.classList.add("hidden");
+}
 
 function populateQueue() {
   queueList.innerHTML = "";
@@ -228,3 +275,14 @@ function cancelSleepTimer() {
     sleepTimerText.textContent = "";
   }
 }
+
+document.addEventListener("click", (event) => {
+  const isClickInsideMenu = bottomMenu.contains(event.target);
+  const isClickingButton = sleepBtn.contains(event.target) || queueBtn.contains(event.target);
+
+  if (!isClickInsideMenu && !isClickingButton && !bottomMenu.classList.contains("hidden")) {
+    bottomMenu.classList.add("hidden");
+    sleepContent.classList.add("hidden");
+    queueContent.classList.add("hidden");
+  }
+});

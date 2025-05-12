@@ -7,25 +7,16 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; connect-src 'self' https://eros1012.github.io; img-src 'self' https://eros1012.github.io; media-src 'self' https://eros1012.github.io; script-src 'self';"
     />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <link href="./styles.css" rel="stylesheet" />
     <title>Music Player</title>
   </head>
   <body>
     <!-- This file is used to render the main window of the app -->
     <div class="container">
-      <div class="sleep-timer-container">
-        <p>Stop playing after:</p>
-        <ul>
-          <li data-minutes="5">5 minutes</li>
-          <li data-minutes="10">10 minutes</li>
-          <li data-minutes="15">15 minutes</li>
-          <li data-minutes="30">30 minutes</li>
-          <li data-minutes="45">45 minutes</li>
-          <li data-minutes="60">1 hour</li>
-          <li data-minutes="cancel">Cancel Timer</li>
-        </ul>
-      </div>
-
       <div class="music-player">
         <img src="thumbnails/IMG_9624.JPEG" class="song-img" />
         <h1 class="song-name">Song name</h1>
@@ -41,6 +32,12 @@
         </div>
 
         <div class="controls">
+          <div class="sleep-timer-container">
+            <button id="sleep-timer" class="control-btn">
+              <img src="icons/timer.svg" alt="Timer" />
+            </button>
+            <span id="sleep-timer-text"></span>
+          </div>
           <button id="prev" class="control-btn">
             <img src="icons/prev.svg" alt="Previous" />
           </button>
@@ -50,18 +47,50 @@
           <button id="next" class="control-btn">
             <img src="icons/next.svg" alt="Next" />
           </button>
+          <button id="queue" class="control-btn">
+            <img src="icons/menu.svg" alt="Queue" />
+          </button>
         </div>
-      </div>
 
-      <div class="queue-container">
-        <p>Queue:</p>
-        <ul id="queue-list">
-          <!-- Dynamically populated -->
-        </ul>
+        <div id="bottom-menu" class="bottom-menu hidden">
+          <button id="close-menu" class="control-btn">
+            <img src="icons/close.svg" alt="Close" />
+          </button>
+          <div id="sleep-content" class="menu-section hidden">
+            <p>Stop playing after:</p>
+            <ul>
+              <li data-minutes="5">5 minutes</li>
+              <li data-minutes="10">10 minutes</li>
+              <li data-minutes="15">15 minutes</li>
+              <li data-minutes="30">30 minutes</li>
+              <li data-minutes="45">45 minutes</li>
+              <li data-minutes="60">1 hour</li>
+              <li data-minutes="cancel">Cancel Timer</li>
+            </ul>
+          </div>
+
+          <div id="queue-content" class="menu-section hidden">
+            <p>Queue:</p>
+            <ul id="queue-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
+
+    <script>
+      function setVhUnit() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+
+      window.addEventListener("resize", setVhUnit);
+      window.addEventListener("orientationchange", setVhUnit);
+      setVhUnit();
+    </script>
   </body>
 </html>

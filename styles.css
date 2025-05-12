@@ -1,6 +1,10 @@
 /* styles.css */
 
 /* Reset & base styles */
+:root {
+  --vh: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,39 +12,43 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html,
 body {
   background: #121212;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  padding: 20px 0; 
 }
 
 .container {
-  width: 90%;
-  height: 80%;
+  height: calc(var(--vh, 1vh) * 100 - 40px);
+  max-height: 700px;;
   background: #1e1e1e;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 .music-player {
+  width: 100%;
+  max-width: 400px; /* Set a max width for the player */
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  justify-content: center;
 }
 
 .song-img {
-  width: 50%;
+  width: 100%;
+  max-width: 320px;
   border-radius: 15px;
   object-fit: cover;
   margin-bottom: 20px;
@@ -66,18 +74,12 @@ body {
   text-align: center;
 }
 
-.menus-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
+/* Progress bar */
 .progress-container {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 70%;
+  width: 100%;
 }
 
 .time-info {
@@ -119,7 +121,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 100%;
 }
 
 .control-btn {
@@ -131,13 +133,41 @@ body {
 }
 
 .control-btn img {
-  width: 40px;
-  height: 40px;
-  filter: invert(1); 
+  width: 24px;
+  height: 24px;
+  filter: invert(1); /* Make SVG icons white */
+}
+
+.control-btn:active img {
+  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%) hue-rotate(88deg) brightness(94%) contrast(101%);
 }
 
 .control-btn:hover {
   transform: scale(1.2);
+}
+
+.control-btn:active {
+  filter: brightness(0) saturate(100%) invert(66%) sepia(27%) saturate(819%) hue-rotate(88deg) brightness(94%) contrast(101%);
+  /* This turns icons into the Spotify green on press/focus */
+}
+
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #1c1c1c;
+  color: white;
+  padding: 1em;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  border-top: 1px solid #333;
+  height: 370px;
+}
+
+.hidden {
+  display: none;
 }
 
 .menu-section ul {
@@ -152,18 +182,26 @@ body {
   cursor: pointer;
 }
 
+#close-menu {
+  border: none;
+  padding: 0px;
+  padding-bottom: 5px;
+}
+
 .sleep-timer-container {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 #sleep-timer-text {
+  position: absolute;
+  top: calc(100% - 10px);
   font-size: 12px;
   color: #aaa;
-  position: absolute;
-  bottom: 5px;
+  text-align: center;
+  width: 100%;
 }
 
 #sleep-content ul li {
@@ -199,30 +237,4 @@ body {
   width: 20px;
   margin-left: 10px;
   filter: brightness(0) saturate(100%) invert(100%);
-}
-
-/* iPads and tablets (portrait and landscape) */
-@media (min-width: 601px) and (max-width: 1024px) {
-  button,
-  #queue-list li,
-  .sleep-options li {
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-
-  /* Desktop hover */
-  button:hover,
-  #queue-list li:hover,
-  .sleep-options li:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.03);
-    cursor: pointer;
-  }
-
-  /* Mobile active state */
-  button:active,
-  #queue-list li:active,
-  .sleep-options li:active {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(0.98);
-  }
 }
