@@ -82,38 +82,6 @@ function shuffle(array) {
   return array;
 }
 
-/**
- * Randomizes the remaining queue while preserving
- * the currently playing track.
- */
-function shuffleQueue() {
-  if (!Array.isArray(songs) || songs.length <= 1) {
-    return;
-  }
-
-  const currentSong = songs[songIndex];
-
-  const remainingSongs = songs.filter(
-    (_, index) => index !== songIndex
-  );
-
-  for (let i = remainingSongs.length - 1; i > 0; i--) {
-    const randomIndex = Math.floor(Math.random() * (i + 1));
-
-    [
-      remainingSongs[i],
-      remainingSongs[randomIndex]
-    ] = [
-      remainingSongs[randomIndex],
-      remainingSongs[i]
-    ];
-  }
-
-  songs = [currentSong, ...remainingSongs];
-  songIndex = 0;
-
-  populateQueue();
-}
 
 function playSong() {
   audio.play();
