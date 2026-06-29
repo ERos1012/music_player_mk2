@@ -22,6 +22,7 @@ let audio,
 let sleepTimeout = null;
 let sleepInterval = null;
 let sleepEndTime = null;
+let shuffleBtn;
 let songs = [];
 let songIndex = 0;
 let isPlaying = false;
@@ -45,6 +46,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   queueList = document.getElementById("queue-list");
   cancelBtn = document.getElementById("close-menu");
   sleepTimerText = document.getElementById("sleep-timer-text");
+  shuffleBtn = document.getElementById("shuffle-queue");
 
   // Create and insert audio element
   audio = new Audio();
@@ -79,6 +81,39 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]]; // Swap elements
   }
   return array;
+}
+
+/**
+ * Randomizes the remaining queue while preserving
+ * the currently playing track.
+ */
+function shuffleQueue() {
+  if (!Array.isArray(songs) || songs.length <= 1) {
+    return;
+  }
+
+  const currentSong = songs[songIndex];
+
+  const remainingSongs = songs.filter(
+    (_, index) => index !== songIndex
+  );
+
+  for (let i = remainingSongs.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    [
+      remainingSongs[i],
+      remainingSongs[randomIndex]
+    ] = [
+      remainingSongs[randomIndex],
+      remainingSongs[i]
+    ];
+  }
+
+  songs = [currentSong, ...remainingSongs];
+  songIndex = 0;
+
+  populateQueue();
 }
 
 function playSong() {
@@ -148,6 +183,8 @@ function setupEventListeners() {
   progressBar.addEventListener("input", seekAudio);
   audio.addEventListener("timeupdate", updateProgressBar);
   audio.addEventListener("ended", playNext);
+
+  shuffleBtn.addEventListener("click", shuffleQueue);
 
   sleepBtn.addEventListener("click", () => {
     toggleBottomMenu("sleep");
