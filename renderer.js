@@ -46,7 +46,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   queueList = document.getElementById("queue-list");
   cancelBtn = document.getElementById("close-menu");
   sleepTimerText = document.getElementById("sleep-timer-text");
-  shuffleBtn = document.getElementById("shuffle-queue");
 
   // Create and insert audio element
   audio = new Audio();
@@ -183,8 +182,6 @@ function setupEventListeners() {
   progressBar.addEventListener("input", seekAudio);
   audio.addEventListener("timeupdate", updateProgressBar);
   audio.addEventListener("ended", playNext);
-
-  shuffleBtn.addEventListener("click", shuffleQueue);
 
   sleepBtn.addEventListener("click", () => {
     toggleBottomMenu("sleep");
